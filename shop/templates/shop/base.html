@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    {% include "shop/header.html" %}
+  </head>
+  <body>
+    {% include "shop/navbar.html" %}
+    <h1>{{request.user }}</h1>
+    {% block content %} {% endblock %}
+  </body>
+</html>

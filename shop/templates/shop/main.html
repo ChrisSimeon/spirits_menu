@@ -1,0 +1,12 @@
+{% extends "shop/base.html" %} {% block content %}
+<div class="container-fluid main">
+  <h1>Welcome</h1>
+  <p>{% now "jS F Y H:i" %}</p>
+  <ul>
+  {% for Produkt in Produkte %}
+  <li>{{Produkt}} <div class="container"><img src="{{Produkt.image.url}}" class="pics"></img></div></li>
+  {% empty %} No Categories yet {% endfor %} 
+  </ul> 
+  {% lorem 5 p random %}
+</div>
+{% endblock %}
