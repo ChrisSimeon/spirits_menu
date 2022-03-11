@@ -4,8 +4,12 @@
     {% include "shop/header.html" %}
   </head>
   <body>
-    {% include "shop/navbar.html" %}
-    <h1>{{request.user }}</h1>
+    <div class="logo">
+      <img src="/uploads/logo.png">
+    </div>
+    <main>
     {% block content %} {% endblock %}
+    {% include "shop/navbar.html" %}
+    </main>
   </body>
 </html>

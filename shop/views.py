@@ -8,33 +8,40 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import logout
+from django.views.generic.detail import DetailView
 
 
 # Create your views here.
 
 def home(request):
-    produkte = Produkte.objects.all()
-    context = {"Produkte" : produkte}
-    print(produkte[1].image.url)
+    
+    data = []
+    for kategorie in Kategorien.objects.all():
+        name = kategorie.name
+        id = kategorie.id
+        produkte = Produkte.objects.filter(categorie = kategorie)
+        data.append([kategorie,produkte])
+    context = {"context": data}
     return render(request, "shop/main.html", context)
 
 
-class KategorienListe(LoginRequiredMixin,ListView):
-    model = Kategorien
-    template_name = "shop/kategorien.html"
+def kategorienViews(request, *args, **kwargs):
+    temp = kwargs["produkt"]
+    try:
+        Kategorie = Kategorien.objects.get(name='{}'.format(temp))
+        produkte = Kategorie.produkte_set.all()
+        context = {"produkte": produkte}
+    except:
+        context= {}
+
+    return render(request, "shop/kategorien.html", context)
+
+
+class spiritsDetailView(DetailView):
+    model= Produkte
+    template_name= "shop/detailView.html"
     
-class KategorienCreate(CreateView):
-    model = Kategorien
-    template_name = "shop/kategoriencreate.html"
-    fields = ["name", "description"]
-    
-    
-class SignUp (CreateView):
-    form_class = UserCreationForm
-    success_url= reverse_lazy("login")
-    template_name = "registration/signup.html"
-    
-def logout_request(request):
-    logout(request)
-    return redirect("Shop")
-        
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        print(context)
+        return context

@@ -1,9 +1,8 @@
 {% extends "shop/base.html" %}
-
-{% block content %}
-{% for kategorie in Kategorie %}
-    <li> {{kategorie}} </li>
-{% empty %}
-    No Categories yet
-{% endfor %}
+{% block content %} 
+{% for produkt in produkte %}
+<li>{{produkt}}</li>
+{% empty %} 
+Hier leider keine Produkte.
+{% endfor %} 
 {% endblock %}

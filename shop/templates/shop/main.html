@@ -1,12 +1,25 @@
 {% extends "shop/base.html" %} {% block content %}
+
 <div class="container-fluid main">
-  <h1>Welcome</h1>
-  <p>{% now "jS F Y H:i" %}</p>
   <ul>
-  {% for Produkt in Produkte %}
-  <li>{{Produkt}} <div class="container"><img src="{{Produkt.image.url}}" class="pics"></img></div></li>
-  {% empty %} No Categories yet {% endfor %} 
-  </ul> 
-  {% lorem 5 p random %}
+    {% for kategorie in context %}
+      {% if kategorie.1%}
+        <h1> {{kategorie.0}} </h1>
+        {% for produkt in kategorie.1|dictsort:"name"%}
+          <a href="{% url 'spiritsDetail' produkt.id %}">
+            <div class="produkt">
+              <h4>{{produkt}}</h4>
+                <span class="prince1">2cl {{produkt.preis1}}€</span><br>
+                <span class="price2">4cl {{produkt.preis2}}€</span> 
+            </div>
+          </a>
+        {%endfor%}
+          
+        {%endif%}
+      {% empty %}Gibt leider nichts zu trinken
+      
+    {% endfor %}
+    </div>
+  </ul>
+  {% endblock %}
 </div>
-{% endblock %}

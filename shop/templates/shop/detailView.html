@@ -1,0 +1,29 @@
+{% extends "shop/base.html" %} 
+{% block content %}
+
+<h1>{{produkte}}</h1>
+{% if produkte.subcategorie%}
+<span class="kategorie_unterschrift">{{produkte.subcategorie}}</span>
+{% else%}
+<span class="kategorie_unterschrift">{{produkte.categorie}}</span>
+{% endif%}
+<div class="image_beschreibung">
+    {% if produkte.image%}
+<div class="img_container"><img src="{{produkte.image.url}}"></div>
+    {% endif%}
+<div class="beschreibung"><p>{{produkte.description}}</p></div>
+</div>
+
+<div class="preise">
+    <span class="preis1"> 2cl : {{produkte.preis1}}€</span><br>
+    <span class="preis2"> 4cl : {{produkte.preis2}}€</span>
+</div>
+
+
+<a href="{% url 'Shop' %}">
+    <div class="back">
+        <p>Back</p>
+    </div>
+</a>
+
+{% endblock %}
