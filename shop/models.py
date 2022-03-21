@@ -7,37 +7,52 @@ import json
 
 # Create your models here.
 
-class Kategorien(models.Model):
-    name = models.CharField(max_length=200, default="")
+class Categories(models.Model):
+    name = models.CharField(max_length=200, default="", unique=True)
     description = models.TextField(default="", null=True, blank=True)
+    show= models.BooleanField(default=True)
     def __str__(self):
         return self.name
+
     class Meta:
         verbose_name = _('Kategorie')
         verbose_name_plural= _("Kategorien")
     
+    @classmethod
+    def get_default_pk(cls):
+        category, created = cls.objects.get_or_create(
+            name='Sonstiges', description='Alles Weitere', show=False)
+        return category.pk
     
-class UnterKategorien(models.Model):
+    
+class SubCategories(models.Model):
     name = models.CharField(max_length=200, default="")
     description = models.TextField(default="", null=True, blank=True)
-    categorie = models.ForeignKey(Kategorien, on_delete=models.CASCADE, null = True)
+    category = models.ForeignKey(Categories, on_delete=models.SET_DEFAULT, null = True, default=Categories.get_default_pk)
+    show= models.BooleanField(default=True)
+    
     def __str__(self):
         return self.name
     class Meta:
         verbose_name = _('Unterkategorie')
         verbose_name_plural= _("Unterkategorien")
+        
+    @classmethod
+    def get_default_pk(cls):
+        subcategory, created = cls.objects.get_or_create(
+            name='Sonstiges', description='Alles Weitere', show=False)
+        return subcategory.pk
 
 
-class Produkte(models.Model):
+class Products(models.Model):
     name = models.CharField(max_length=200, default="")
-    categorie = models.ForeignKey(Kategorien, on_delete=models.CASCADE, null = True)
-    subcategorie = models.ForeignKey(UnterKategorien,models.SET_NULL,blank=True,null=True)
+    subcategory = models.ForeignKey(SubCategories,models.SET_DEFAULT,blank=True,null=True, default=SubCategories.get_default_pk)
     prozent = models.IntegerField(null = True)
     description = models.TextField(default="", null=True, blank=True)
-    availability = models.BooleanField(default=False)
+    availability = models.BooleanField(default=True)
     image = models.FileField(upload_to='', blank=True,null=True)
-    preis1 = models.DecimalField(null=True, max_digits=5, decimal_places=2)
-    preis2 = models.DecimalField(null=True, max_digits=5, decimal_places=2)
+    price1 = models.DecimalField(null=True, max_digits=5, decimal_places=2)
+    price2 = models.DecimalField(null=True, max_digits=5, decimal_places=2)
     def __str__(self):
         return self.name
     class Meta:
@@ -45,11 +60,21 @@ class Produkte(models.Model):
         verbose_name_plural= _("Produkte")
 
 
-class Cocktails(models.Model):
-    # name = models.CharField(max_length=200, default="")
-    # description= models.TextField(blank=True)
-    # image= models.FileField(upload_to='', blank=True)
-    # preis = models.DecimalField(null=True, max_digits=5, decimal_places=2)
-    # zutat1 = models.ForeignKey(null=True, blank=True)
+class Tags(models.Model):
+    name = models.CharField(max_length=200)
+
     def __str__(self):
         return self.name
+
+
+class Cocktails(models.Model):
+    name = models.CharField(max_length=200, default="")
+    description= models.TextField(blank=True)
+    image= models.FileField(upload_to='', blank=True)
+    price = models.DecimalField(null=True, max_digits=5, decimal_places=2)
+    tags = models.ManyToManyField(Tags, blank=True)
+    ingredients = models.ManyToManyField(Products, blank=True)
+
+    def __str__(self):
+        return self.name
+

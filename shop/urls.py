@@ -14,6 +14,8 @@ urlpatterns = [
 	path("kategorien/vodka", views.kategorienViews, {'produkt':'Vodka'}, name="KategorieVodka"),
 	path("kategorien/wermut", views.kategorienViews, {'produkt':'Wermut'}, name="KategorieWermut"),
 	path("spirits/<pk>", views.spiritsDetailView.as_view(), name="spiritsDetail"),
+	path("cocktails/", views.cocktailsListView.as_view(), name="cocktailsList"),
+	path("cocktails/<pk>", views.cocktailsDetailView.as_view(), name="cocktailsDetail"),
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

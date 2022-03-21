@@ -1,25 +1,28 @@
 {% extends "shop/base.html" %} {% block content %}
 
-<div class="container-fluid main">
-  <ul>
-    {% for kategorie in context %}
-      {% if kategorie.1%}
-        <h1> {{kategorie.0}} </h1>
-        {% for produkt in kategorie.1|dictsort:"name"%}
-          <a href="{% url 'spiritsDetail' produkt.id %}">
-            <div class="produkt">
-              <h4>{{produkt}}</h4>
-                <span class="prince1">2cl {{produkt.preis1}}€</span><br>
-                <span class="price2">4cl {{produkt.preis2}}€</span> 
-            </div>
-          </a>
+    {% for category in categories %}
+      {% if category%}
+    <div class="container-fluid main">
+        <h1> {{category.name}} </h1>
+          {% for subcategory in category.subcategories_set.all %}
+            {% if subcategory.show %}
+              <h2> {{ subcategory.name }} </h2>
+                {% for product in subcategory.products_set.all|dictsort:"name"%}
+                  <a href="{% url 'spiritsDetail' product.id %}">
+                    <div class="product">
+                    <h4>{{product.name}}</h4>
+                      <span class="prince1">2cl {{product.price1}}€</span><br>
+                      <span class="price2">4cl {{product.price2}}€</span> 
+                  </div>
+                </a>
+                {% empty %}Gibt leider nichts zu trinken
+                {%endfor%}
+          {% endif%}
+        {% empty %}Gibt leider nichts zu trinken
         {%endfor%}
-          
-        {%endif%}
-      {% empty %}Gibt leider nichts zu trinken
-      
-    {% endfor %}
+    {%endif%}
+    {% empty %}Gibt leider nichts zu trinken
     </div>
-  </ul>
+    {% endfor %}
   {% endblock %}
 </div>

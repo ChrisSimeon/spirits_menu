@@ -1,22 +1,22 @@
 {% extends "shop/base.html" %} 
 {% block content %}
 
-<h1>{{produkte}}</h1>
-{% if produkte.subcategorie%}
-<span class="kategorie_unterschrift">{{produkte.subcategorie}}</span>
+<h1>{{products.name}}</h1>
+{% if products.subcategory%}
+<span class="kategorie_unterschrift">{{products.subcategory}}</span>
 {% else%}
-<span class="kategorie_unterschrift">{{produkte.categorie}}</span>
+<span class="kategorie_unterschrift">{{products.subcategory}}</span>
 {% endif%}
 <div class="image_beschreibung">
-    {% if produkte.image%}
+    {% if products.image%}
 <div class="img_container"><img src="{{produkte.image.url}}"></div>
     {% endif%}
-<div class="beschreibung"><p>{{produkte.description}}</p></div>
+<div class="beschreibung"><p>{{products.description}}</p></div>
 </div>
 
 <div class="preise">
-    <span class="preis1"> 2cl : {{produkte.preis1}}€</span><br>
-    <span class="preis2"> 4cl : {{produkte.preis2}}€</span>
+    <span class="preis1"> 2cl : {{products.price1}}€</span><br>
+    <span class="preis2"> 4cl : {{products.price2}}€</span>
 </div>
 
 

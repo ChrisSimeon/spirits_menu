@@ -2,10 +2,13 @@
 body, html {
   --black: #000600;
   --white: white; 
-  --color1: rgb(0, 44, 0);
+  --color1: rgb(0, 0, 0);
   --color2: #f5dc7f;
-  background-color: var(--black);
-  color: var(--white);
+  background-image: url("../../uploads/background.jpg");
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+  color: var(--black);
   box-sizing: border-box;
   font-family: 'Open Sans Condensed',Helvetica,Arial,Lucida,sans-serif;
   text-align: center;
@@ -16,6 +19,7 @@ img {
   width: 80%;
   height:auto; 
   padding: 10px;
+  max-width: 300px;
 }
 
 h4 {
@@ -27,7 +31,7 @@ ul {
 }
 
 a, a:visited {
-  color: var(--white);
+  color: var(--black);
   text-decoration: none;
 }
 
@@ -36,21 +40,24 @@ a, a:visited {
 }
 
 main {
-  padding-bottom: 80px;
+  padding: 20px 80px;
   max-width: 200px;
-  margin: auto;
+  margin: 20px auto;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
   
 }
-.produkt {
- border: 4px inset var(--color1);
+.product {
  border-radius: 20%;
  padding: 5px 20px 20px 20px;
  margin: 5px;
+ background-color: rgba(255, 255, 255, 0.2);
+ border-radius: 10px;
 }
 
 /* Ausfaden von allem was hinter dem Menü Button liegt*/
 div.menu {
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.39), rgb(0, 0, 0))
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgb(255, 255, 255))
 }
 
 
@@ -395,6 +402,7 @@ DEPENDENCES
     font-size: 2rem;
     font-weight: 700;
     text-transform: uppercase;
+    margin: 3rem; 
   }
   
   .linktr{
