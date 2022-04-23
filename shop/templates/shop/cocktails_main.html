@@ -2,11 +2,11 @@
 
 <div class="container-fluid main">
   <ul>
-    {% for cocktail in cocktails_list %}
+    {% for cocktail in cocktails_list|dictsort:"name" %}
       <a href="{% url 'cocktailsDetail' cocktail.id %}">
-      <div class="element">
+      <div class="product">
       <h1>{{ cocktail.name}} </h1>
-      <p> {{cocktail.price}}</p>
+      <p> {{cocktail.price}}€</p>
       </div>
     </a>
     {% endfor %}

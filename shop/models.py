@@ -46,6 +46,7 @@ class SubCategories(models.Model):
 
 class Products(models.Model):
     name = models.CharField(max_length=200, default="")
+    category=models.ForeignKey(Categories, models.SET_DEFAULT, blank=False, default=Categories.get_default_pk)
     subcategory = models.ForeignKey(SubCategories,models.SET_DEFAULT,blank=True,null=True, default=SubCategories.get_default_pk)
     prozent = models.IntegerField(null = True)
     description = models.TextField(default="", null=True, blank=True)
@@ -66,6 +67,10 @@ class Tags(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = _('Tag')
+        verbose_name_plural= _("Tags")
+
 
 class Cocktails(models.Model):
     name = models.CharField(max_length=200, default="")
@@ -74,7 +79,13 @@ class Cocktails(models.Model):
     price = models.DecimalField(null=True, max_digits=5, decimal_places=2)
     tags = models.ManyToManyField(Tags, blank=True)
     ingredients = models.ManyToManyField(Products, blank=True)
+    recommendations = models.ManyToManyField('self', blank=True)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = _('Cocktail')
+        verbose_name_plural= _("Cocktails")  
+    
 

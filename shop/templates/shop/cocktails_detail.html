@@ -1,9 +1,39 @@
 {% extends "shop/base.html" %} {% block content %}
 
 <div class="container-fluid main">
-  <ul>
       <h1>{{ cocktails.name}} </h1>
-      <p> {{cocktails.price}}</p>
-  </ul>
+      <p> {{cocktails.price}}€ </p>
+      {% if cocktails.image%}
+      <div class="img_container"><img src="{{cocktails.image.url}}"></div>
+          {% endif%}
+      <ul class="ingredients">
+      {%for ingredient in cocktails.ingredients.all %}
+      <li> {{ingredient}} </li>
+      {% endfor%}
+      </ul>
+
+      <p> {{cocktails.description}} </p>
+
+      <h4> Das könnte dir auch gefallen</h4>
+      <ul>
+        {% for recommendation in cocktails.recommendations.all %}
+          <a href="{% url 'cocktailsDetail' recommendation.id %}"><li> {{recommendation.name}}</li></a>
+          {%endfor%}  
+      </ul>
+
+      <ul class="tags">
+        {% for tag in cocktails.tags.all %}
+          <li> {{tag.name}}</li>
+          {%endfor%}  
+      </ul>
+
+      <a href="{% url 'Shop' %}">
+        <div class="back">
+            <button>Back</button>
+        </div>
+    </a>
+
 </div>
+
+
   {% endblock %}

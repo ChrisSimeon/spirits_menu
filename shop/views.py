@@ -11,8 +11,10 @@ from django.views.generic.edit import CreateView
 from .models import Categories, Products, SubCategories, Cocktails
 
 # Create your views here.
-
 def home(request):
+    context = {}
+    return render(request, "shop/home.html", context)
+def spiritsList(request):
     
     # for category in Categories.objects.all():
     #     if category["show"] == True:
@@ -28,7 +30,7 @@ def home(request):
         "products": Products.objects.all()  
         
     }
-    return render(request, "shop/main.html", context)
+    return render(request, "shop/spirits_main.html", context)
 
 
 def kategorienViews(request, *args, **kwargs):

@@ -1,0 +1,15 @@
+{% extends "shop/base.html" %} 
+
+{% block content %}
+
+<h1> Wilkommen im Elfsechzehn </h1>
+
+<div class="flexmain">
+<a href="{% url 'spiritsList' %}"><div class="flexelement"><p>Spirits</p></div></a>
+<a href="{% url 'cocktailsList' %}"><div class="flexelement"><p>Cocktails</p></div></a>
+</div>
+
+
+
+
+{% endblock %}
