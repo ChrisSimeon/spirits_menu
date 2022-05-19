@@ -20,13 +20,13 @@
           <a href="{% url 'cocktailsDetail' recommendation.id %}"><li> {{recommendation.name}}</li></a>
           {%endfor%}  
       </ul>
-
+      {% comment %}
       <ul class="tags">
         {% for tag in cocktails.tags.all %}
           <li> {{tag.name}}</li>
           {%endfor%}  
       </ul>
-
+	{% endcomment %}
       <a href="{% url 'Shop' %}">
         <div class="back">
             <button>Back</button>
