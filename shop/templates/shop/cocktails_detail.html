@@ -13,13 +13,14 @@
       </ul>
 
       <p> {{cocktails.description}} </p>
-
+	{% if cocktails.recommendations.all %} 
       <h4> Das könnte dir auch gefallen</h4>
       <ul>
         {% for recommendation in cocktails.recommendations.all %}
           <a href="{% url 'cocktailsDetail' recommendation.id %}"><li> {{recommendation.name}}</li></a>
           {%endfor%}  
       </ul>
+      {% endif %}
       {% comment %}
       <ul class="tags">
         {% for tag in cocktails.tags.all %}
@@ -27,7 +28,7 @@
           {%endfor%}  
       </ul>
 	{% endcomment %}
-      <a href="{% url 'Shop' %}">
+      <a href="{% url 'cocktailsList' %}">
         <div class="back">
             <button>Back</button>
         </div>

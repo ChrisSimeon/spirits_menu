@@ -1,10 +1,10 @@
 {% extends "shop/base.html" %} {% block content %}
 
-    {% for category in categories %}
-      {% if category%}
+    {% for category in categories|dictsort:"name"%}
+      {% if category.show%}
     <div class="container-fluid main">
         <h1> {{category.name}} </h1>
-          {% for subcategory in category.subcategories_set.all %}
+          {% for subcategory in category.subcategories_set.all|dictsort:"name" %}
             {% if subcategory.show %}
               <h2> {{ subcategory.name }} </h2>
                 {% for product in subcategory.products_set.all|dictsort:"name"%}
